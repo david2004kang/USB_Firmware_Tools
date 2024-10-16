@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "USB_Firmware_Tools", "USB_Firmware_Tools\USB_Firmware_Tools.csproj", "{751C639D-6196-40B4-8C93-7534A86C4C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "USB_Firmware_Tools", "USB_Firmware_Tools\USB_Firmware_Tools.csproj", "{751C639D-6196-40B4-8C93-7534A86C4C41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
