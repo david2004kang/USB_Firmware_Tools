@@ -12,6 +12,7 @@ namespace USB_Firmware_Tools
 {
     public partial class ProgressDialogForm : Form
     {
+        private string string2Backup = "";
         public ProgressDialogForm()
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace USB_Firmware_Tools
         public void SetMessage2(string message)
         {
             Label2.Text = message;
+            string2Backup = message;
         }
 
         public int GetMaxProgress()
@@ -32,16 +34,18 @@ namespace USB_Firmware_Tools
             return progressBar1.Maximum;
         }
 
-        public void GetProgress(int progress)
+        public int GetProgress()
         {
-            if(progress <= progressBar1.Maximum)
-               progressBar1.Value = progress;
+            return progressBar1.Value;
         }
         
         public void SetProgress(int progress)
         {
-            progressBar1.Value = progress;
+            if (progress <= progressBar1.Maximum)
+            {
+                progressBar1.Value = progress;
+                Label2.Text = string2Backup + " (" + progress + "%)";
+            }
         }
-
     }
 }

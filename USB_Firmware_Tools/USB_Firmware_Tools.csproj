@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="dmcSecureUpdate.zip" />
+    <None Remove="ts4_OK.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="dmcSecureUpdate.zip" />
+    <EmbeddedResource Include="ts4_OK.png" />
   </ItemGroup>
 
   <ItemGroup>

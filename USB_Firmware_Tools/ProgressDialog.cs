@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace USB_Firmware_Tools
 {
@@ -61,9 +56,21 @@ namespace USB_Firmware_Tools
             return progressDialogForm.GetMaxProgress();
         }
 
+        public int GetProgress()
+        {
+            return progressDialogForm.GetProgress();
+        }
         public void SetProgress(int nProgress)
         {
-            progressDialogForm.SetProgress(nProgress);
+            try
+            {
+                if (progressDialogForm.Visible)
+                    progressDialogForm.Invoke(new Action(() => progressDialogForm.SetProgress(nProgress)));
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"Some exception: {ex.Message}");
+            }
         }
 
         public void SetProgressTopMost(bool bTopMost)
