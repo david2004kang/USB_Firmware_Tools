@@ -31,63 +31,60 @@ namespace USB_Firmware_Tools
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressDialogForm));
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.Label1 = new System.Windows.Forms.Label();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            progressBar1 = new ProgressBar();
+            Label1 = new Label();
+            Label2 = new Label();
+            SuspendLayout();
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(16, 92);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(567, 39);
-            this.progressBar1.Step = 1;
-            this.progressBar1.TabIndex = 0;
+            progressBar1.Location = new Point(18, 109);
+            progressBar1.Margin = new Padding(4, 5, 4, 5);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(638, 46);
+            progressBar1.Step = 1;
+            progressBar1.TabIndex = 0;
             // 
             // Label1
             // 
-            this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("UD Digi Kyokasho NK-R", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Label1.Location = new System.Drawing.Point(16, 12);
-            this.Label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(177, 22);
-            this.Label1.TabIndex = 1;
-            this.Label1.Text = "Checking device...";
+            Label1.Font = new Font("UD Digi Kyokasho NK-R", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            Label1.Location = new Point(18, 14);
+            Label1.Margin = new Padding(4, 0, 4, 0);
+            Label1.Name = "Label1";
+            Label1.Size = new Size(638, 26);
+            Label1.TabIndex = 1;
+            Label1.Text = "Checking device...";
             // 
             // Label2
             // 
-            this.Label2.AutoSize = true;
-            this.Label2.Font = new System.Drawing.Font("UD Digi Kyokasho NK-R", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Label2.Location = new System.Drawing.Point(16, 35);
-            this.Label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Label2.Name = "Label2";
-            this.Label2.Padding = new System.Windows.Forms.Padding(0, 7, 0, 0);
-            this.Label2.Size = new System.Drawing.Size(240, 29);
-            this.Label2.TabIndex = 2;
-            this.Label2.Text = "Read device information.";
+            Label2.Font = new Font("UD Digi Kyokasho NK-R", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            Label2.Location = new Point(18, 42);
+            Label2.Margin = new Padding(4, 0, 4, 0);
+            Label2.Name = "Label2";
+            Label2.Padding = new Padding(0, 8, 0, 0);
+            Label2.Size = new Size(638, 34);
+            Label2.TabIndex = 2;
+            Label2.Text = "Read device information.";
             // 
             // ProgressDialogForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(601, 147);
-            this.ControlBox = false;
-            this.Controls.Add(this.Label2);
-            this.Controls.Add(this.Label1);
-            this.Controls.Add(this.progressBar1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "ProgressDialogForm";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Firmware updating...";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(676, 175);
+            ControlBox = false;
+            Controls.Add(Label2);
+            Controls.Add(Label1);
+            Controls.Add(progressBar1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "ProgressDialogForm";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Firmware updating...";
+            ResumeLayout(false);
         }
 
         #endregion

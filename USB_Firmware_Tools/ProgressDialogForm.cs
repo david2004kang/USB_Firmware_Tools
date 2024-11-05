@@ -43,6 +43,18 @@ namespace USB_Firmware_Tools
         {
             if (progress <= progressBar1.Maximum)
             {
+                if (string2Backup == "")
+                {
+                    if (!Label2.Text.EndsWith(")"))
+                    {
+                        string2Backup = Label2.Text;
+                    }
+                    else
+                    {
+                        var temp = Label2.Text.Split('(', 2);
+                        string2Backup = temp[0];
+                    }
+                }
                 progressBar1.Value = progress;
                 Label2.Text = string2Backup + " (" + progress + "%)";
             }
