@@ -93,17 +93,17 @@ namespace USB_Firmware_Tools
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == string.Empty)
-            {
-                MessageBox.Show("Please select a file first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (textBox1.Text == string.Empty)
+            //{
+            //    MessageBox.Show("Please select a file first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            if (!File.Exists(textBox1.Text))
-            {
-                MessageBox.Show("File does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (!File.Exists(textBox1.Text))
+            //{
+            //    MessageBox.Show("File does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
             SetGUI(false);
 
@@ -259,23 +259,33 @@ namespace USB_Firmware_Tools
             string checkString = "Read Customer Version command called";
             if (output.Contains(checkString))
             {
-                Match match = Regex.Match(output, @"(\d{4})\s*$");
+                mProgressDialog?.Close();
+                mProgressDialog = null;
 
+                string lastFourDigits = string.Empty;
+                Match match = Regex.Match(output, @"0{14}([0-9a-fA-F]{4})\s*$");
                 if (match.Success)
                 {
-                    mProgressDialog?.Close();
-                    mProgressDialog = null;
-                    string lastFourDigits = match.Groups[1].Value;
+                    lastFourDigits = match.Groups[1].Value;
                     Trace.WriteLine($"Last four digits: {lastFourDigits}");
-                    FinishDialog? finishDialog = new FinishDialog();
-                    finishDialog?.SetMessage1("DMC version check");
-                    finishDialog?.SetMessage2($"This DMC customer version: {lastFourDigits}");
-                    finishDialog?.SetEnableButton1(true);
-                    finishDialog?.ShowDialog();
-                    finishDialog?.Close();
-                    finishDialog = null;
                 }
-            } 
+
+                string PID = string.Empty, VID = string.Empty;
+                match = Regex.Match(output, @"VID:\s0x([0-9a-fA-F]{4}),\sPID:\s0x([0-9a-fA-F]{4})");
+                if (match.Success)
+                {
+                    PID = match.Groups[1].Value;
+                    VID = match.Groups[2].Value;
+                    Trace.WriteLine($"VID: {VID}, PID: {PID}");
+                }
+                FinishDialog? finishDialog = new FinishDialog();
+                finishDialog?.SetMessage1("DMC version check");
+                finishDialog?.SetMessage2($"This DMC customer version: {lastFourDigits}\nPID: 0x{PID}, VID: 0x{VID}");
+                finishDialog?.SetEnableButton1(true);
+                finishDialog?.ShowDialog();
+                finishDialog?.Close();
+                finishDialog = null;
+            }
             else
             {
                 mProgressDialog?.Close();

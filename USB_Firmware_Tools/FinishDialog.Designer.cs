@@ -69,9 +69,10 @@
             label2.Font = new Font("MS Reference Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(4, 169);
             label2.Name = "label2";
+            label2.Padding = new Padding(10, 0, 10, 0);
             label2.Size = new Size(349, 75);
             label2.TabIndex = 2;
-            label2.Text = "New version (SOHO_5.05.213)\r\nFirmware will be applied after replug\r\nthe power cable for dock.";
+            label2.Text = "New version Firmware will be applied after replug the power cable for dock.";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -87,7 +88,7 @@
             // pictureBox1
             // 
             pictureBox1.Anchor = AnchorStyles.None;
-            pictureBox1.Image = USB_Firmware_Tools.Properties.Resources.ts4_OK;
+            pictureBox1.Image = Properties.Resources.ts4_OK;
             pictureBox1.Location = new Point(121, 12);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";

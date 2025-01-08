@@ -44,7 +44,7 @@
             // pictureBox1
             // 
             pictureBox1.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox1.Image = Properties.Resources.ts4_tidmc_1;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(40, 82);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(570, 300);
@@ -69,7 +69,6 @@
             label2.Size = new Size(94, 19);
             label2.TabIndex = 2;
             label2.Text = "Bin file path:";
-            label2.Visible = false;
             // 
             // textBox1
             // 
@@ -77,7 +76,6 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(204, 27);
             textBox1.TabIndex = 3;
-            textBox1.Visible = false;
             // 
             // openFileDialog1
             // 
@@ -92,7 +90,6 @@
             button1.TabIndex = 4;
             button1.Text = "Flash BIN";
             button1.UseVisualStyleBackColor = true;
-            button1.Visible = false;
             button1.Click += button1_Click;
             // 
             // button2
@@ -123,7 +120,6 @@
             button4.Size = new Size(36, 29);
             button4.TabIndex = 7;
             button4.UseVisualStyleBackColor = true;
-            button4.Visible = false;
             button4.Click += button4_Click;
             // 
             // Form1
