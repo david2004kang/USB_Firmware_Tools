@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "USB_Firmware_Tools": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\david\\source\\repos\\USB_Firmware_Tools",
+      "nativeDebugging": true
+    }
+  }
+}

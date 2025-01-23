@@ -45,7 +45,7 @@
             // 
             pictureBox1.BorderStyle = BorderStyle.Fixed3D;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(40, 82);
+            pictureBox1.Location = new Point(40, 120);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(570, 300);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -54,27 +54,26 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(41, 26);
+            label1.Location = new Point(13, 18);
             label1.Name = "label1";
-            label1.Size = new Size(581, 38);
+            label1.Size = new Size(623, 88);
             label1.TabIndex = 1;
-            label1.Text = "This program will update the Dock's USB PD firmware.\r\nPlease connect Dock to the Computer then click on \"Flash BIN\" or \"Version\" button.";
+            label1.Text = resources.GetString("label1.Text");
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(13, 414);
+            label2.Location = new Point(13, 451);
             label2.Name = "label2";
-            label2.Size = new Size(94, 19);
+            label2.Size = new Size(132, 19);
             label2.TabIndex = 2;
-            label2.Text = "Bin file path:";
+            label2.Text = "Firmware Bin File:";
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(111, 410);
+            textBox1.Location = new Point(149, 447);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 27);
+            textBox1.Size = new Size(220, 27);
             textBox1.TabIndex = 3;
             // 
             // openFileDialog1
@@ -84,27 +83,28 @@
             // 
             // button1
             // 
-            button1.Location = new Point(376, 409);
+            button1.Location = new Point(456, 446);
             button1.Name = "button1";
             button1.Size = new Size(94, 29);
             button1.TabIndex = 4;
-            button1.Text = "Flash BIN";
+            button1.Text = "Update";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(476, 409);
+            button2.Location = new Point(476, 519);
             button2.Name = "button2";
             button2.Size = new Size(78, 29);
             button2.TabIndex = 5;
             button2.Text = "Version";
             button2.UseVisualStyleBackColor = true;
+            button2.Visible = false;
             button2.Click += button2_Click;
             // 
             // button3
             // 
-            button3.Location = new Point(569, 409);
+            button3.Location = new Point(569, 446);
             button3.Name = "button3";
             button3.Size = new Size(67, 29);
             button3.TabIndex = 6;
@@ -115,7 +115,7 @@
             // button4
             // 
             button4.Image = Properties.Resources.FolderOpened;
-            button4.Location = new Point(321, 409);
+            button4.Location = new Point(377, 446);
             button4.Name = "button4";
             button4.Size = new Size(36, 29);
             button4.TabIndex = 7;
@@ -126,7 +126,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(653, 457);
+            ClientSize = new Size(653, 492);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
@@ -140,7 +140,7 @@
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "CalDigit Dock PD Firmware Updating Engineer Tool";
+            Text = "CalDigit Thunderbolt Dock / Hub PD Firmware Updater";
             FormClosing += Form1_FormClosing;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

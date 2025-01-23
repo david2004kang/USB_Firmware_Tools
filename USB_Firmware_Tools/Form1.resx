@@ -587,6 +587,11 @@
         ivcaKAuz/9k=
 </value>
   </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>This program is to update CalDigit Thunderbolt Dock / Hub's Power Delivery Firmware.
+
+Please connect your CalDigit device, then click on Folder icon to choose the firmware bin file. Click on "Update" button to start firmware update.</value>
+  </data>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>

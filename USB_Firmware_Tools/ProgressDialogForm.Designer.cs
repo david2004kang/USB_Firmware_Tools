@@ -34,11 +34,12 @@ namespace USB_Firmware_Tools
             progressBar1 = new ProgressBar();
             Label1 = new Label();
             Label2 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // progressBar1
             // 
-            progressBar1.Location = new Point(18, 109);
+            progressBar1.Location = new Point(18, 68);
             progressBar1.Margin = new Padding(4, 5, 4, 5);
             progressBar1.Name = "progressBar1";
             progressBar1.Size = new Size(638, 46);
@@ -47,24 +48,36 @@ namespace USB_Firmware_Tools
             // 
             // Label1
             // 
-            Label1.Font = new Font("UD Digi Kyokasho NK-R", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            Label1.Location = new Point(18, 14);
+            Label1.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            Label1.Location = new Point(18, 202);
             Label1.Margin = new Padding(4, 0, 4, 0);
             Label1.Name = "Label1";
             Label1.Size = new Size(638, 26);
             Label1.TabIndex = 1;
             Label1.Text = "Checking device...";
+            Label1.Visible = false;
             // 
             // Label2
             // 
-            Label2.Font = new Font("UD Digi Kyokasho NK-R", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
-            Label2.Location = new Point(18, 42);
+            Label2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 128);
+            Label2.Location = new Point(18, 15);
             Label2.Margin = new Padding(4, 0, 4, 0);
             Label2.Name = "Label2";
             Label2.Padding = new Padding(0, 8, 0, 0);
             Label2.Size = new Size(638, 34);
             Label2.TabIndex = 2;
-            Label2.Text = "Read device information.";
+            Label2.Text = "Please wait ...";
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            button1.Location = new Point(248, 135);
+            button1.Name = "button1";
+            button1.Size = new Size(146, 29);
+            button1.TabIndex = 3;
+            button1.Text = "Abort && Quit";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // ProgressDialogForm
             // 
@@ -72,6 +85,7 @@ namespace USB_Firmware_Tools
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(676, 175);
             ControlBox = false;
+            Controls.Add(button1);
             Controls.Add(Label2);
             Controls.Add(Label1);
             Controls.Add(progressBar1);
@@ -83,7 +97,7 @@ namespace USB_Firmware_Tools
             Name = "ProgressDialogForm";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Firmware updating...";
+            Text = "Firmware Updating ...";
             ResumeLayout(false);
         }
 
@@ -108,5 +122,7 @@ namespace USB_Firmware_Tools
         {
             Label2.Text = strToChange;
         }
+
+        private Button button1;
     }
 }

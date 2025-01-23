@@ -38,7 +38,7 @@ namespace USB_Firmware_Tools
         {
             return progressBar1.Value;
         }
-        
+
         public void SetProgress(int progress)
         {
             if (progress <= progressBar1.Maximum)
@@ -57,6 +57,28 @@ namespace USB_Firmware_Tools
                 }
                 progressBar1.Value = progress;
                 Label2.Text = string2Backup + " (" + progress + "%)";
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Press OK to abort the firmware update and Exit the program, or press Cancel to continue updating.",
+                "Abort firmware update?",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                var form1Instance = Application.OpenForms.OfType<Form1>().FirstOrDefault();
+                form1Instance?.progressTimer?.Stop();
+                form1Instance?.progressTimer?.Dispose();
+                form1Instance?.process?.Kill();
+                form1Instance?.SetGUI(true);
+                this.Close();
+                Form1.bBypassExitCheck = true;
+
+                // 在這裡添加中斷Firmware更新的邏輯
+                Application.Exit();
             }
         }
     }

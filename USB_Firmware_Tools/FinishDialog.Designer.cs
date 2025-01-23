@@ -47,40 +47,41 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(360, 308);
+            panel1.Size = new Size(344, 307);
             panel1.TabIndex = 0;
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button1.Enabled = false;
             button1.Font = new Font("MS Reference Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(25, 249);
+            button1.Location = new Point(19, 255);
             button1.Margin = new Padding(10);
             button1.Name = "button1";
             button1.Size = new Size(308, 42);
             button1.TabIndex = 3;
             button1.TabStop = false;
-            button1.Text = "Confirm && Exit";
+            button1.Text = "Confirm";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
             // label2
             // 
             label2.Font = new Font("MS Reference Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(4, 169);
+            label2.Location = new Point(12, 169);
             label2.Name = "label2";
             label2.Padding = new Padding(10, 0, 10, 0);
-            label2.Size = new Size(349, 75);
+            label2.Size = new Size(324, 75);
             label2.TabIndex = 2;
-            label2.Text = "New version Firmware will be applied after replug the power cable for dock.";
+            label2.Text = "New version updated.\r\nPlease power cycle your device to apply the new firmware.";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
             label1.Font = new Font("MS Reference Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 134);
+            label1.Location = new Point(12, 134);
             label1.Name = "label1";
-            label1.Size = new Size(350, 38);
+            label1.Size = new Size(324, 38);
             label1.TabIndex = 1;
             label1.Text = "Firmware update successful !";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -89,7 +90,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = Properties.Resources.ts4_OK;
-            pictureBox1.Location = new Point(121, 12);
+            pictureBox1.Location = new Point(113, 11);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(114, 115);
@@ -100,10 +101,11 @@
             // FinishDialog
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(360, 308);
+            AutoSize = true;
+            ClientSize = new Size(344, 307);
             ControlBox = false;
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FinishDialog";
             ShowIcon = false;
             ShowInTaskbar = false;

@@ -14,10 +14,11 @@ namespace USB_Firmware_Tools
         private ProgressDialog? mProgressDialog;
         private Progress<int> progress;
         Random random = new Random();
-        private System.Timers.Timer? progressTimer;
+        public System.Timers.Timer? progressTimer;
         private int nProgressStep = 1;
+        public Process? process;
 
-        private void TryDeleteDirectory(string path)
+        public void TryDeleteDirectory(string path)
         {
             try
             {
@@ -36,7 +37,6 @@ namespace USB_Firmware_Tools
         {
             if (mProgressDialog != null)
             {
-                // 假設你有一個方法來獲取當前進度
                 int currentProgress = mProgressDialog.GetProgress();
                 if (currentProgress < 100)
                 {
@@ -50,7 +50,7 @@ namespace USB_Firmware_Tools
             }
         }
 
-        private void InitializeProgressTimer(int nTimeGap=1000)
+        private void InitializeProgressTimer(int nTimeGap = 1000)
         {
             progressTimer = new System.Timers.Timer(nTimeGap);
             progressTimer.Elapsed += UpdateProgress;
@@ -65,15 +65,30 @@ namespace USB_Firmware_Tools
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!bBypassExitCheck)
+
+            try
             {
-                if (MessageBox.Show("Firmware flashing did not finish.\nDo you really want to exit?", "Exit confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (!bBypassExitCheck)
                 {
-                    e.Cancel = true;
-                    return;
+                    CustomExitDialog exitDialog = new CustomExitDialog();
+                    exitDialog.StartPosition = FormStartPosition.Manual; // 手動設置位置
+                    exitDialog.Location = new Point(
+                        this.Location.X + (this.Width - exitDialog.Width) / 2,
+                        this.Location.Y + (this.Height - exitDialog.Height) / 2
+                    );
+                    var result = exitDialog.ShowDialog();
+                    if (result == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                 }
+
+                TryDeleteDirectory(tempPath);
             }
-            TryDeleteDirectory(tempPath);
+            catch (Exception ex)
+            {
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -88,22 +103,33 @@ namespace USB_Firmware_Tools
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine($"Failed to open the help document: {ex.Message}");
+            }
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            //if (textBox1.Text == string.Empty)
-            //{
-            //    MessageBox.Show("Please select a file first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (textBox1.Text == string.Empty)
+            {
+                MessageBox.Show(
+                    "The BIN file path is empty, please assign BIN file path before clicking on Update button.",
+                    "Error, no BIN file assigned", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            //if (!File.Exists(textBox1.Text))
-            //{
-            //    MessageBox.Show("File does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!File.Exists(textBox1.Text))
+            {
+                MessageBox.Show(
+                    "The BIN file doesn't exist on this path, please check BIN file path before click on Update button.",
+                    "Error, BIN file didn't exist", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             SetGUI(false);
 
@@ -115,11 +141,20 @@ namespace USB_Firmware_Tools
                 await Task.Run(() => ExtractEmbeddedZip(progress, nMax));
             }
 
-            mProgressDialog?.SetMessage1("Start updating firmware...");
-            mProgressDialog?.SetMessage2("Please wait for firmware updating");
             InitializeProgressTimer(2300);
             progressTimer?.Start();
-            string output = await RunProcessAsync(filePath, $"-f \"{textBox1.Text}\"");
+            string output = await RunProcessAsync(filePath, "-x");
+            string lastFourDigits;
+            Trace.WriteLine(output);
+            Match match = Regex.Match(output, @"0{14}([0-9a-fA-F]{4})\s*$");
+            if (match.Success)
+            {
+                lastFourDigits = match.Groups[1].Value;
+                Trace.WriteLine($"Last four digits: {lastFourDigits}");
+                mProgressDialog?.SetMessage2($"Updating firmware from version: {lastFourDigits},");
+            }
+            //mProgressDialog?.SetMessage1("Start updating firmware...");
+            output = await RunProcessAsync(filePath, $"-f \"{textBox1.Text}\"");
             Trace.WriteLine(output);
             progressTimer?.Stop();
             progressTimer?.Dispose();
@@ -131,8 +166,13 @@ namespace USB_Firmware_Tools
                 mProgressDialog?.Close();
                 mProgressDialog = null;
                 FinishDialog? finishDialog = new FinishDialog();
-                finishDialog?.SetMessage1("Firmware update successful!");
-                finishDialog?.SetMessage2("New version updated\nPlease power cycle your Dock to apply\nthe new firmware.");
+                finishDialog.StartPosition = FormStartPosition.Manual; // 手動設置位置
+                finishDialog.Location = new Point(
+                    this.Location.X + (this.Width - finishDialog.Width) / 2,
+                    this.Location.Y + (this.Height - finishDialog.Height) / 2
+                );
+                //finishDialog?.SetMessage1("Firmware update successful!");
+                //finishDialog?.SetMessage2("New version updated\nPlease power cycle your Dock to apply\nthe new firmware.");
                 finishDialog?.SetEnableButton1(true);
                 finishDialog?.ShowDialog();
                 finishDialog?.Close();
@@ -140,13 +180,15 @@ namespace USB_Firmware_Tools
             }
             else
             {
-                MessageBox.Show("Firmware update failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                mProgressDialog?.Close();
+                mProgressDialog = null;
+                MessageBox.Show("Firmware update failed. ", "Error, update firmware failed.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             SetGUI(true);
         }
 
-        void SetGUI(bool bEnable)
+        public void SetGUI(bool bEnable)
         {
             button1.Enabled = bEnable;
             button2.Enabled = bEnable;
@@ -166,7 +208,7 @@ namespace USB_Firmware_Tools
             }
         }
 
-        private void ExtractEmbeddedZip(IProgress<int>? progress=null, int maxProgress=0)
+        private void ExtractEmbeddedZip(IProgress<int>? progress = null, int maxProgress = 0)
         {
             TryDeleteDirectory(tempPath);
             Directory.CreateDirectory(tempPath);
@@ -221,26 +263,25 @@ namespace USB_Firmware_Tools
                 CreateNoWindow = true
             };
 
-            using (var process = new Process { StartInfo = processStartInfo })
+            process = new Process { StartInfo = processStartInfo };
+
+            var output = new StringBuilder();
+            var error = new StringBuilder();
+
+            process.OutputDataReceived += (sender, e) => { if (e.Data != null) output.AppendLine(e.Data); };
+            process.ErrorDataReceived += (sender, e) => { if (e.Data != null) error.AppendLine(e.Data); };
+
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
+
+            if (process.ExitCode != 0)
             {
-                var output = new StringBuilder();
-                var error = new StringBuilder();
-
-                process.OutputDataReceived += (sender, e) => { if (e.Data != null) output.AppendLine(e.Data); };
-                process.ErrorDataReceived += (sender, e) => { if (e.Data != null) error.AppendLine(e.Data); };
-
-                process.Start();
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                await process.WaitForExitAsync();
-
-                if (process.ExitCode != 0)
-                {
-                    return $"Error: {error.ToString()}";
-                }
-
-                return output.ToString();
+                return $"Error: {error.ToString()}";
             }
+
+            return output.ToString();
         }
 
         private async void button2_Click(object sender, EventArgs e)

@@ -51,7 +51,13 @@ namespace USB_Firmware_Tools
                     ApplicationConfiguration.Initialize();
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new Form1());
+                    try
+                    {
+                        Application.Run(new Form1());
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
             }
             // To customize application configuration such as set high DPI settings or default font,
