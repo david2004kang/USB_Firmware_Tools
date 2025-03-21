@@ -73,7 +73,7 @@
             // 
             textBox1.Location = new Point(149, 447);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(220, 27);
+            textBox1.Size = new Size(199, 27);
             textBox1.TabIndex = 3;
             // 
             // openFileDialog1
@@ -83,7 +83,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(456, 446);
+            button1.Location = new Point(396, 447);
             button1.Name = "button1";
             button1.Size = new Size(94, 29);
             button1.TabIndex = 4;
@@ -93,18 +93,17 @@
             // 
             // button2
             // 
-            button2.Location = new Point(476, 519);
+            button2.Location = new Point(496, 447);
             button2.Name = "button2";
-            button2.Size = new Size(78, 29);
+            button2.Size = new Size(75, 29);
             button2.TabIndex = 5;
             button2.Text = "Version";
             button2.UseVisualStyleBackColor = true;
-            button2.Visible = false;
             button2.Click += button2_Click;
             // 
             // button3
             // 
-            button3.Location = new Point(569, 446);
+            button3.Location = new Point(577, 447);
             button3.Name = "button3";
             button3.Size = new Size(67, 29);
             button3.TabIndex = 6;
@@ -115,7 +114,7 @@
             // button4
             // 
             button4.Image = Properties.Resources.FolderOpened;
-            button4.Location = new Point(377, 446);
+            button4.Location = new Point(354, 446);
             button4.Name = "button4";
             button4.Size = new Size(36, 29);
             button4.TabIndex = 7;
